@@ -39,6 +39,8 @@ MORE	equ	2
 LESS	equ	3
 
 memcmp	proc
+		cld
+		
 		repe	cmpsb
 		
 		ja	above
@@ -69,6 +71,8 @@ endp	memcmp
 ;============================================================
 
 memset	proc
+		cld
+		
 		rep	stosb
 		ret
 endp	memset
@@ -83,6 +87,8 @@ endp	memset
 ;============================================================
 
 memcpy	proc
+		cld
+		
 		rep	movsb
 
 		ret
