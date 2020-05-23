@@ -31,6 +31,7 @@ Start:
 ;===========================================
 
 strlen proc
+		cld
 		xor	cx, cx
 
 compare:
