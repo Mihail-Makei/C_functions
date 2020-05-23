@@ -1,6 +1,6 @@
 # Functions implemented using assembly language
-|Function|Description|
-----------------------
+| Function | Description |
+------------------------------------------------------------
 | Memset | Fills memory with specified symbol |
 | Memcpy | Copies specified information into specified buffer |
 | Memchr | Finds first entry of the specified symbol |
