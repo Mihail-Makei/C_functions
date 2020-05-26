@@ -98,7 +98,7 @@ endp	memcpy
 ;============================================================
 ; Expects: es:[di] - address to search, al - symbol to search,
 ;					cx - length of buffer
-; Returns: bx - symbol position, bx + cx if not found
+; Returns: di - symbol position, length of buffer if not found
 ;
 ; Destroys: di, cx
 ;============================================================
