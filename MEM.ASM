@@ -98,24 +98,19 @@ endp	memcpy
 ;============================================================
 ; Expects: es:[di] - address to search, al - symbol to search,
 ;					cx - length of buffer
-; Returns: bx - symbol position
+; Returns: bx - symbol position, bx + cx if not found
 ;
 ; Destroys: di, cx
 ;============================================================
 
 memchr	proc
-		xor	bx, bx
+		mov	bx, di
 		cld
 
 find:
-		scasb
-		je	found
+		repne 	scasb
+		sub	di, bx
 		
-		inc	bx
-		loop	find
-
-		mov	bx, -1
-found:
 		ret
 
 endp	memchr
