@@ -105,6 +105,7 @@ strcpy	proc
 copypaste:
 		scasb
 		je	endcpy
+		dec	di
 
 		movsb
 		jmp	copypaste
@@ -125,24 +126,21 @@ endp	strcpy
 
 strchr	proc
 		cld
-		xor	cx, cx
-		xor	ah, ah
+		xor	bx, bx
+		
+		push	di
+		call 	strlen
+		pop	di
 
 findchr:
 		scasb
 		je	found
-
-		xchg	ah, al
-		scasb
-		je	not_found
 		
-		xchg	ah, al
-		inc	di
-		inc	cx
-		jmp	findchr
+		inc	bx
+		loop	findchr
 
 not_found:
-		mov	cx, -1
+		mov	bx, -1
 
 found:
 		ret
