@@ -27,20 +27,19 @@ Start:
 ;
 ;Returns: cx - length of string
 ;
-;Destroys: di, bl
+;Destroys: di, al
 ;===========================================
 
 strlen proc
 		cld
 		xor	cx, cx
+		xor	al, al
 
 compare:
-		mov	bl, byte ptr es:[di]
-		cmp	bl, 0
+		scasb
 		je	finish
 		
 		inc	cx
-		inc	di
 		jmp	compare
 
 finish:
@@ -95,15 +94,16 @@ endp	strcmp
 ;	ds:[si] - address of string to copy
 ; Returns: none
 ;
-; Destroys: cx, si
+; Destroys: al, si
 ;======================================================
 
 strcpy	proc
 		cld
+		
+		xor	al, al
 
 copypaste:
-		mov	cx, ds:[si]
-		cmp	cx, 0
+		scasb
 		je	endcpy
 
 		movsb
@@ -116,31 +116,33 @@ endp	strcpy
 ;======================================================
 ;			STRCHR
 ;======================================================
-; Expects: es:[di] - string, ch - symbol
+; Expects: es:[di] - string, al - symbol
 ;
-; Returns: ax - position of symbol (-1 if not found)
+; Returns: cx - position of symbol (-1 if not found)
 ;
 ; Destroys: di, bx
 ;======================================================
 
 strchr	proc
 		cld
-		xor	ax, ax
+		xor	cx, cx
+		xor	ah, ah
 
 findchr:
-		mov	cl, es:[di]
-		cmp	cl, ch
+		scasb
 		je	found
 
-		cmp	cl, 0
+		xchg	ah, al
+		scasb
 		je	not_found
-
+		
+		xchg	ah, al
 		inc	di
-		inc	ax
+		inc	cx
 		jmp	findchr
 
 not_found:
-		mov	ax, -1
+		mov	cx, -1
 
 found:
 		ret
