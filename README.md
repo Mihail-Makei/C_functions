@@ -1,4 +1,5 @@
-# Functions implemented using assembly language
+# Functions
+Functions from <string.h> library implemented using intel i386 assembly (DOS operation system).
 | Function | Description |
 |----------|-------------|
 | Memset | Fills memory with specified symbol |
